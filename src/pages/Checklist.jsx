@@ -23,11 +23,13 @@ export default function Checklist() {
   const handleAnswer = (choice) => {
     // Tactile vibration
     if (typeof window !== 'undefined' && window.navigator && window.navigator.vibrate) {
-      window.navigator.vibrate(choice ? [40, 50, 40] : 30);
+      try {
+        window.navigator.vibrate(choice ? [40, 50, 40] : 30);
+      } catch (e) {}
     }
 
     if (choice) {
-      setTempAlert(lang === 'hi' ? 'चेतावनी संकेत दर्ज हुआ!' : 'Scam Warning Pattern Flagged!');
+      setTempAlert(lang === 'hi' ? '⚠️ चेतावनी संकेत दर्ज हुआ!' : '⚠️ Threat Signal Flagged!');
       setTimeout(() => setTempAlert(null), 1800);
     }
 
@@ -84,7 +86,7 @@ export default function Checklist() {
 
     const utterance = new SpeechSynthesisUtterance(textToSpeak);
     utterance.lang = lang === 'hi' ? 'hi-IN' : 'en-IN';
-    utterance.rate = 0.88; // Slightly slower, calm cadence for elderly listeners
+    utterance.rate = 0.88;
 
     utterance.onend = () => setIsSpeaking(false);
     utterance.onerror = () => setIsSpeaking(false);
@@ -93,7 +95,6 @@ export default function Checklist() {
     window.speechSynthesis.speak(utterance);
   };
 
-  // Clean up speech on unmount
   useEffect(() => {
     return () => {
       stopSpeech();
@@ -107,215 +108,166 @@ export default function Checklist() {
     const isGreen = yesCount === 0;
 
     return (
-      <div className="flex flex-col w-full pb-14 pt-2 animate-fadeIn max-w-[640px] mx-auto">
-        {/* Floating audio control on top right */}
-        <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col w-full pb-6 pt-1 animate-fadeIn">
+        {/* Top Controls: Restart & Speak */}
+        <div className="flex justify-between items-center mb-3">
           <button
             onClick={restartChecklist}
-            className="flex items-center gap-1.5 py-2 px-4 rounded-full bg-surface-container font-label-lg text-primary text-[17px] active:bg-surface-container-high shadow-sm"
+            className="flex items-center gap-1.5 py-1.5 px-3 rounded-full bg-surface-container font-bold text-primary text-[15px] active:bg-surface-container-high shadow-sm"
           >
-            <span className="material-symbols-outlined text-[22px]">restart_alt</span>
+            <span className="material-symbols-outlined text-[20px]">restart_alt</span>
             <span>{t.retakeChecklist}</span>
           </button>
 
           <button
             onClick={handleSpeakVerdict}
             aria-label={isSpeaking ? t.stopAudio : t.readAloud}
-            className={`flex items-center gap-2 py-2 px-4 rounded-full font-label-lg text-[17px] shadow-sm transition-colors ${
+            className={`flex items-center gap-1.5 py-1.5 px-3.5 rounded-full font-bold text-[15px] shadow-sm transition-colors ${
               isSpeaking
                 ? 'bg-error text-on-error animate-pulse'
                 : 'bg-secondary-container text-on-secondary-container'
             }`}
           >
-            <span className="material-symbols-outlined text-[24px]">
+            <span className="material-symbols-outlined text-[22px]">
               {isSpeaking ? 'volume_off' : 'volume_up'}
             </span>
-            <span className="font-bold">{isSpeaking ? t.stopAudio : t.readAloud}</span>
+            <span>{isSpeaking ? t.stopAudio : t.readAloud}</span>
           </button>
         </div>
 
-        {/* RED VERDICT SCREEN (Matches Stitch Template 3) */}
+        {/* RED VERDICT SCREEN */}
         {isRed && (
-          <div className="flex flex-col gap-space-lg w-full">
-            <div className="w-full bg-error text-on-error rounded-2xl p-space-lg shadow-lg flex items-center gap-space-md border-2 border-red-700">
-              <div className="w-16 h-16 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
-                <span className="material-symbols-outlined text-[40px] text-white">
+          <div className="flex flex-col gap-3 w-full">
+            <div className="w-full bg-error text-on-error rounded-2xl p-4 shadow-lg flex items-center gap-3 border-2 border-red-700">
+              <div className="w-14 h-14 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
+                <span className="material-symbols-outlined text-[36px] text-white">
                   warning
                 </span>
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-headline-xl-mobile text-headline-xl-mobile uppercase tracking-wide leading-tight">
+                <span className="text-[24px] font-black uppercase tracking-wide leading-tight">
                   {t.verdictRedTitle}
                 </span>
-                <span className="font-label-lg text-label-lg opacity-95 mt-1 font-bold">
-                  {t.verdictRedSub} ({yesCount}/5 {lang === 'hi' ? 'खतरे के संकेत' : 'Threat Signals'})
+                <span className="text-[16px] opacity-95 font-bold">
+                  {t.verdictRedSub} ({yesCount}/5 {lang === 'hi' ? 'संकेत' : 'Signals'})
                 </span>
               </div>
             </div>
 
-            <div className="bg-surface-container rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md border border-surface-container-high">
-              <p className="font-headline-md text-headline-md text-primary font-bold leading-snug">
+            <div className="bg-surface-container rounded-2xl p-4 shadow-sm flex flex-col gap-3 border border-surface-container-high">
+              <p className="text-[20px] text-primary font-black leading-snug">
                 {t.verdictRedMessage}
               </p>
-              <div className="h-1 bg-surface-container-highest rounded-full w-full"></div>
-              <div className="flex items-center gap-space-sm text-primary">
-                <span className="material-symbols-outlined text-[32px] text-secondary shrink-0">
+              <div className="h-0.5 bg-surface-container-highest rounded-full w-full"></div>
+              <div className="flex items-center gap-2 text-primary">
+                <span className="material-symbols-outlined text-[26px] text-secondary shrink-0">
                   verified_user
                 </span>
-                <p className="font-headline-md text-headline-md text-primary font-bold">
+                <p className="text-[17px] text-primary font-bold">
                   {t.safeReassurance}
                 </p>
               </div>
             </div>
 
             {/* Direct Urgent Action Buttons */}
-            <div className="flex flex-col gap-space-md w-full mt-space-xs">
+            <div className="flex flex-col gap-2.5 w-full mt-1">
               <a
-                className="w-full min-h-[72px] py-4 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform text-center font-headline-md text-headline-md focus:outline-none focus:ring-4 focus:ring-primary/40"
+                className="w-full min-h-[60px] py-3 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-2 shadow-md active:scale-[0.98] transition-transform text-center font-bold text-[20px]"
                 href="tel:1930"
               >
-                <span className="material-symbols-outlined text-[32px]">call</span>
-                <span className="font-bold">{lang === 'hi' ? '1930 पर तुरंत कॉल करें' : 'Call 1930 Cyber Helpline'}</span>
+                <span className="material-symbols-outlined text-[28px]">call</span>
+                <span>{lang === 'hi' ? '1930 तुरंत कॉल करें' : 'Call 1930 Cyber Helpline'}</span>
               </a>
 
               <button
-                className="w-full min-h-[72px] py-4 bg-secondary text-on-secondary hover:bg-secondary-fixed active:scale-[0.98] rounded-2xl flex items-center justify-center gap-space-sm shadow-md transition-transform font-headline-md text-headline-md focus:outline-none focus:ring-4 focus:ring-secondary/40 text-center"
+                className="w-full min-h-[60px] py-3 bg-secondary text-on-secondary hover:bg-secondary-fixed active:scale-[0.98] rounded-2xl flex items-center justify-center gap-2 shadow-md transition-transform font-bold text-[20px] text-center"
                 onClick={() => navigate('/family')}
               >
-                <span className="material-symbols-outlined text-[32px]">notifications_active</span>
-                <span className="font-bold">{t.btnAlertFamily}</span>
+                <span className="material-symbols-outlined text-[28px]">notifications_active</span>
+                <span>{t.btnAlertFamily}</span>
               </button>
             </div>
 
-            {/* National Helpline Reassurance Card */}
-            <div className="bg-surface-container-low rounded-2xl p-space-md flex items-center gap-space-sm border border-surface-container-high">
-              <span className="material-symbols-outlined text-[30px] text-primary shrink-0">
-                info
-              </span>
-              <p className="font-body-xl text-body-xl text-on-surface font-semibold">
+            <div className="bg-surface-container-low rounded-xl p-3 flex items-center gap-2 border border-surface-container-high">
+              <span className="material-symbols-outlined text-[24px] text-primary shrink-0">info</span>
+              <p className="text-[15px] text-on-surface font-semibold">
                 {lang === 'hi'
-                  ? '1930 भारत सरकार की आधिकारिक व निःशुल्क साइबर अपराध हेल्पलाइन है।'
-                  : '1930 is the free official National Cyber Crime helpline of India.'}
+                  ? '1930 भारत सरकार की राष्ट्रीय साइबर अपराध हेल्पलाइन है।'
+                  : '1930 is the free official Cyber Crime Helpline of India.'}
               </p>
-            </div>
-
-            {/* Family Safety Guardian Card (from Stitch) */}
-            <div className="w-full bg-surface-container-lowest rounded-2xl p-space-md flex items-center gap-space-md shadow-sm border border-surface-container-high">
-              <div className="w-16 h-16 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed shrink-0">
-                <span className="material-symbols-outlined text-[32px]">diversity_1</span>
-              </div>
-              <div className="flex flex-col min-w-0">
-                <span className="font-label-xl text-label-xl text-primary font-bold">
-                  {t.guardianCardTitle}
-                </span>
-                <span className="font-body-lg text-body-lg text-on-surface-variant">
-                  {lang === 'hi' ? 'परिवार को सतर्क करें, वे आपकी ढाल हैं।' : 'Keep your family informed; they are your shield.'}
-                </span>
-              </div>
             </div>
           </div>
         )}
 
-        {/* AMBER VERDICT SCREEN (1-2 YES) */}
+        {/* AMBER VERDICT SCREEN */}
         {isAmber && (
-          <div className="flex flex-col gap-space-lg w-full">
-            <div className="w-full bg-amber-600 text-white rounded-2xl p-space-lg shadow-lg flex items-center gap-space-md border-2 border-amber-700">
-              <div className="w-16 h-16 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
-                <span className="material-symbols-outlined text-[40px] text-white">
-                  report_problem
-                </span>
+          <div className="flex flex-col gap-3 w-full">
+            <div className="w-full bg-amber-600 text-white rounded-2xl p-4 shadow-lg flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
+                <span className="material-symbols-outlined text-[36px] text-white">report_problem</span>
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-headline-xl-mobile text-headline-xl-mobile uppercase tracking-wide leading-tight">
-                  {t.verdictAmberTitle}
-                </span>
-                <span className="font-label-lg text-label-lg opacity-95 mt-1 font-bold">
-                  {t.verdictAmberSub} ({yesCount}/5)
-                </span>
+                <span className="text-[24px] font-black uppercase leading-tight">{t.verdictAmberTitle}</span>
+                <span className="text-[16px] opacity-95 font-bold">{t.verdictAmberSub} ({yesCount}/5)</span>
               </div>
             </div>
 
-            <div className="bg-surface-container rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md border border-surface-container-high">
-              <p className="font-headline-md text-headline-md text-primary font-bold leading-snug">
-                {t.verdictAmberMessage}
-              </p>
-              <div className="h-1 bg-surface-container-highest rounded-full w-full"></div>
-              <div className="flex items-center gap-space-sm text-primary">
-                <span className="material-symbols-outlined text-[32px] text-secondary shrink-0">
-                  verified_user
-                </span>
-                <p className="font-body-xl text-body-xl text-primary font-bold">
-                  {t.safeReassurance}
-                </p>
-              </div>
+            <div className="bg-surface-container rounded-2xl p-4 shadow-sm border border-surface-container-high">
+              <p className="text-[19px] text-primary font-bold leading-snug">{t.verdictAmberMessage}</p>
             </div>
 
-            <div className="flex flex-col gap-space-md w-full mt-space-xs">
+            <div className="flex flex-col gap-2.5 w-full mt-1">
               <button
-                className="w-full min-h-[72px] py-4 bg-secondary text-on-secondary rounded-2xl flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform font-headline-md text-headline-md"
+                className="w-full min-h-[60px] py-3 bg-secondary text-on-secondary rounded-2xl flex items-center justify-center gap-2 shadow-md font-bold text-[20px]"
                 onClick={() => navigate('/family')}
               >
-                <span className="material-symbols-outlined text-[32px]">notifications_active</span>
-                <span className="font-bold">{t.btnAlertFamily}</span>
+                <span className="material-symbols-outlined text-[28px]">notifications_active</span>
+                <span>{t.btnAlertFamily}</span>
               </button>
 
               <a
-                className="w-full min-h-[72px] py-4 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform font-headline-md text-headline-md"
+                className="w-full min-h-[60px] py-3 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-2 shadow-md font-bold text-[20px]"
                 href="tel:1930"
               >
-                <span className="material-symbols-outlined text-[32px]">call</span>
-                <span className="font-bold">{lang === 'hi' ? '1930 साइबर हेल्पलाइन' : 'Call 1930'}</span>
+                <span className="material-symbols-outlined text-[28px]">call</span>
+                <span>{lang === 'hi' ? '1930 साइबर हेल्पलाइन' : 'Call 1930'}</span>
               </a>
             </div>
           </div>
         )}
 
-        {/* GREEN VERDICT SCREEN (0 YES) */}
+        {/* GREEN VERDICT SCREEN */}
         {isGreen && (
-          <div className="flex flex-col gap-space-lg w-full">
-            <div className="w-full bg-emerald-700 text-white rounded-2xl p-space-lg shadow-lg flex items-center gap-space-md border-2 border-emerald-800">
-              <div className="w-16 h-16 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
-                <span className="material-symbols-outlined text-[40px] text-white">
-                  check_circle
-                </span>
+          <div className="flex flex-col gap-3 w-full">
+            <div className="w-full bg-emerald-700 text-white rounded-2xl p-4 shadow-lg flex items-center gap-3">
+              <div className="w-14 h-14 rounded-full bg-white/20 shrink-0 flex items-center justify-center">
+                <span className="material-symbols-outlined text-[36px] text-white">check_circle</span>
               </div>
               <div className="flex flex-col min-w-0">
-                <span className="font-headline-xl-mobile text-headline-xl-mobile uppercase tracking-wide leading-tight">
-                  {t.verdictGreenTitle}
-                </span>
-                <span className="font-label-lg text-label-lg opacity-95 mt-1 font-bold">
-                  {t.verdictGreenSub}
-                </span>
+                <span className="text-[22px] font-black uppercase leading-tight">{t.verdictGreenTitle}</span>
+                <span className="text-[15px] opacity-95 font-bold">{t.verdictGreenSub}</span>
               </div>
             </div>
 
-            <div className="bg-surface-container rounded-2xl p-space-lg shadow-sm flex flex-col gap-space-md border border-surface-container-high">
-              <p className="font-headline-md text-headline-md text-primary font-bold leading-snug">
-                {t.verdictGreenMessage}
-              </p>
-              <div className="h-1 bg-surface-container-highest rounded-full w-full"></div>
-              <p className="font-body-xl text-body-xl text-on-surface-variant font-medium">
-                {lang === 'hi'
-                  ? 'यदि कभी भी कोई कॉलर आपसे पैसे, बैंक खाते या ओटीपी की मांग करे, तो तुरंत कॉल काट दें।'
-                  : 'If any caller ever demands money transfers, bank credentials, or OTPs, hang up immediately.'}
-              </p>
+            <div className="bg-surface-container rounded-2xl p-4 shadow-sm border border-surface-container-high">
+              <p className="text-[19px] text-primary font-bold leading-snug">{t.verdictGreenMessage}</p>
             </div>
 
-            <div className="flex flex-col gap-space-md w-full mt-space-xs">
+            <div className="flex flex-col gap-2.5 w-full mt-1">
               <button
-                className="w-full min-h-[72px] py-4 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform font-headline-md text-headline-md"
+                className="w-full min-h-[60px] py-3 bg-primary text-on-primary rounded-2xl flex items-center justify-center gap-2 shadow-md font-bold text-[20px]"
                 onClick={() => navigate('/')}
               >
-                <span className="material-symbols-outlined text-[32px]">home</span>
-                <span className="font-bold">{lang === 'hi' ? 'मुख्य पृष्ठ पर जाएं' : 'Return to Home'}</span>
+                <span className="material-symbols-outlined text-[28px]">home</span>
+                <span>{lang === 'hi' ? 'मुख्य पृष्ठ पर जाएं' : 'Return to Home'}</span>
               </button>
 
               <button
-                className="w-full min-h-[72px] py-4 bg-secondary-container text-on-secondary-container rounded-2xl flex items-center justify-center gap-space-sm shadow-md active:scale-[0.98] transition-transform font-headline-md text-headline-md"
+                className="w-full min-h-[60px] py-3 bg-secondary-container text-on-secondary-container rounded-2xl flex items-center justify-center gap-2 shadow-md font-bold text-[20px]"
                 onClick={() => navigate('/drill')}
               >
-                <span className="material-symbols-outlined text-[32px]">model_training</span>
-                <span className="font-bold">{t.btnPractice}</span>
+                <span className="material-symbols-outlined text-[28px]">model_training</span>
+                <span>{t.btnPractice}</span>
               </button>
             </div>
           </div>
@@ -324,34 +276,34 @@ export default function Checklist() {
     );
   }
 
-  // ------------------ QUESTION STEP-BY-STEP SCREEN (Matches Stitch Template 2) ------------------
+  // ------------------ QUESTION STEP-BY-STEP SCREEN ------------------
   return (
-    <div className="flex flex-col w-full pb-10 pt-2 animate-fadeIn max-w-[640px] mx-auto">
+    <div className="flex flex-col w-full pb-4 pt-0 animate-fadeIn">
       
-      {/* Temporary Warning Banner if YES chosen */}
+      {/* Temporary Alert Banner */}
       {tempAlert && (
-        <div className="fixed top-24 left-4 right-4 z-50 max-w-md mx-auto bg-error text-on-error p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-bounce">
-          <span className="material-symbols-outlined text-[32px]">warning</span>
-          <div className="font-label-lg text-label-lg font-bold">{tempAlert}</div>
+        <div className="fixed top-20 left-4 right-4 z-50 max-w-sm mx-auto bg-error text-on-error p-3 rounded-2xl shadow-xl flex items-center gap-2 animate-bounce">
+          <span className="material-symbols-outlined text-[26px]">warning</span>
+          <div className="font-bold text-[16px]">{tempAlert}</div>
         </div>
       )}
 
       {/* Step Indicator & Progress */}
-      <div className="flex flex-col items-center justify-center pt-1 pb-4">
-        <div className="inline-flex items-center gap-space-xs bg-surface-container px-5 py-2 rounded-full shadow-sm mb-4 border border-surface-container-high">
-          <span className="material-symbols-outlined text-secondary text-[22px]">shield</span>
-          <span className="font-label-lg text-label-lg text-on-surface font-bold">
+      <div className="flex flex-col items-center justify-center pt-0 pb-2">
+        <div className="inline-flex items-center gap-1.5 bg-surface-container px-4 py-1 rounded-full shadow-sm mb-2 border border-surface-container-high">
+          <span className="material-symbols-outlined text-secondary text-[20px]">shield</span>
+          <span className="font-bold text-[16px] text-on-surface">
             {t.stepText} {currentIndex + 1} {t.ofText} {totalQuestions}
           </span>
         </div>
 
-        {/* Accessible Progress Dots */}
+        {/* Step Progress Dots */}
         <div
           aria-label={`Assessment progress: Step ${currentIndex + 1} of ${totalQuestions}`}
           aria-valuemax={totalQuestions}
           aria-valuemin={1}
           aria-valuenow={currentIndex + 1}
-          className="flex items-center gap-2"
+          className="flex items-center gap-1.5"
           role="progressbar"
         >
           {questions.map((_, idx) => {
@@ -360,23 +312,23 @@ export default function Checklist() {
             return (
               <React.Fragment key={idx}>
                 <div
-                  className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
+                  className={`w-7 h-7 rounded-full flex items-center justify-center text-[13px] font-black transition-all ${
                     isCompleted
                       ? 'bg-secondary text-on-secondary shadow-sm'
                       : isCurrent
-                      ? 'bg-secondary-container text-on-secondary-container ring-4 ring-secondary-fixed/40 shadow-sm'
+                      ? 'bg-secondary-container text-on-secondary-container ring-2 ring-secondary shadow-sm scale-110'
                       : 'bg-surface-container-high text-outline-variant'
                   }`}
                 >
                   {isCompleted ? (
-                    <span className="material-symbols-outlined text-[18px]">check</span>
+                    <span className="material-symbols-outlined text-[16px]">check</span>
                   ) : (
-                    <span className="text-[14px] font-bold">{idx + 1}</span>
+                    <span>{idx + 1}</span>
                   )}
                 </div>
                 {idx < totalQuestions - 1 && (
                   <div
-                    className={`w-6 h-1.5 rounded-full transition-colors ${
+                    className={`w-4 h-1 rounded-full ${
                       idx < currentIndex ? 'bg-secondary' : 'bg-surface-container-high'
                     }`}
                   ></div>
@@ -387,98 +339,87 @@ export default function Checklist() {
         </div>
       </div>
 
-      {/* Question Card (Matches Stitch Template 2) */}
-      <div className="relative w-full rounded-3xl bg-surface-container-low p-6 sm:p-8 shadow-sm my-3 flex flex-col items-center text-center border border-surface-container-high">
-        <div className="w-20 h-20 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-5 shadow-sm">
-          <span className="material-symbols-outlined text-[42px]">
+      {/* Compact Question Card (Fits effortlessly on screen) */}
+      <div className="relative w-full rounded-2xl bg-surface-container-low p-4 shadow-sm my-2 flex flex-col items-center text-center border border-surface-container-high">
+        <div className="w-14 h-14 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-3 shadow-sm">
+          <span className="material-symbols-outlined text-[32px]">
             {currentIndex === 0 ? 'videocam' : currentIndex === 1 ? 'do_not_disturb_on' : currentIndex === 2 ? 'currency_rupee' : currentIndex === 3 ? 'badge' : 'lock_person'}
           </span>
         </div>
 
-        <h2 className="font-headline-xl-mobile text-headline-xl-mobile text-primary tracking-tight mb-4 leading-snug">
+        <h2 className="text-[22px] font-black text-primary tracking-tight mb-2 leading-tight">
           {currentQ?.question}
         </h2>
 
-        {/* Helpful Explanation Note */}
-        <div className="w-full bg-surface-container rounded-2xl p-4 flex items-start gap-space-sm text-left border border-surface-container-high/60">
-          <span className="material-symbols-outlined text-secondary text-[30px] shrink-0 mt-0.5">
-            info
-          </span>
-          <p className="font-body-xl text-body-xl text-on-surface font-semibold leading-relaxed">
+        {/* Informative Hint */}
+        <div className="w-full bg-surface-container rounded-xl p-2.5 flex items-start gap-2 text-left border border-surface-container-high/60">
+          <span className="material-symbols-outlined text-secondary text-[22px] shrink-0 mt-0.5">info</span>
+          <p className="text-[15px] text-on-surface font-semibold leading-snug">
             {currentQ?.subtext}
           </p>
         </div>
       </div>
 
-      {/* 2 Big Yes / No Action Buttons (Min 64px - 72px for elderly accessibility) */}
-      <div className="flex flex-col gap-space-md mt-4 w-full">
-        {/* YES button (RED / HIGH CONTRAST) */}
+      {/* 2 Big Visible Buttons: YES and NO (Both guaranteed on screen) */}
+      <div className="flex flex-col gap-2.5 mt-2 w-full">
+        {/* YES button */}
         <button
-          className="w-full min-h-[72px] rounded-2xl bg-error text-on-error font-headline-md text-headline-md shadow-md active:opacity-90 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-error/40"
+          className="w-full min-h-[60px] rounded-2xl bg-error text-on-error font-black text-[22px] shadow-md active:opacity-90 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
           onClick={() => handleAnswer(true)}
           type="button"
           aria-label={`${t.yesBtn}: ${currentQ?.question}`}
         >
-          <span className="material-symbols-outlined text-[30px]">check_circle</span>
-          <span className="font-bold">{t.yesBtn}</span>
+          <span className="material-symbols-outlined text-[28px]">check_circle</span>
+          <span>{t.yesBtn}</span>
         </button>
 
-        {/* NO button (NAVY PRIMARY / HIGH CONTRAST) */}
+        {/* NO button */}
         <button
-          className="w-full min-h-[72px] rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md shadow-md active:opacity-90 flex items-center justify-center gap-2 transition-transform active:scale-[0.98] focus:outline-none focus:ring-4 focus:ring-primary/40"
+          className="w-full min-h-[60px] rounded-2xl bg-primary text-on-primary font-black text-[22px] shadow-md active:opacity-90 flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
           onClick={() => handleAnswer(false)}
           type="button"
           aria-label={`${t.noBtn}: ${currentQ?.question}`}
         >
-          <span className="material-symbols-outlined text-[30px]">cancel</span>
-          <span className="font-bold">{t.noBtn}</span>
+          <span className="material-symbols-outlined text-[28px]">cancel</span>
+          <span>{t.noBtn}</span>
         </button>
       </div>
 
       {/* Pause & Breathe Button */}
-      <div className="flex flex-col items-center justify-center mt-6 gap-space-sm text-center">
+      <div className="flex flex-col items-center justify-center mt-3 text-center">
         <button
-          className="inline-flex items-center gap-2.5 py-3.5 px-6 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-high shadow-sm"
+          className="inline-flex items-center gap-1.5 py-2 px-4 rounded-full bg-surface-container hover:bg-surface-container-high active:scale-95 transition-all border border-surface-container-high shadow-sm text-primary font-bold text-[15px]"
           onClick={() => setShowBreathingModal(true)}
           type="button"
         >
-          <span className="material-symbols-outlined text-secondary text-[28px]">
-            self_improvement
-          </span>
-          <span className="font-label-lg text-label-lg text-primary font-bold">
-            {t.pauseBreatheBtn}
-          </span>
+          <span className="material-symbols-outlined text-secondary text-[22px]">self_improvement</span>
+          <span>{t.pauseBreatheBtn}</span>
         </button>
       </div>
 
-      {/* Breathing Pause Modal (Matches Stitch Template 2) */}
+      {/* Breathing Pause Modal */}
       {showBreathingModal && (
         <div
           aria-labelledby="modal-title"
           aria-modal="true"
-          className="fixed inset-0 z-50 flex items-center justify-center p-margin bg-primary/60 backdrop-blur-md animate-fadeIn"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-primary/60 backdrop-blur-md animate-fadeIn"
           role="dialog"
         >
-          <div className="w-full max-w-sm rounded-3xl bg-surface-container-lowest p-6 sm:p-8 shadow-2xl flex flex-col items-center text-center border border-surface-container-high">
-            {/* Pulsating breathing circle */}
-            <div className="relative w-24 h-24 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-5 shadow-sm">
-              <span className="material-symbols-outlined text-[52px]">spa</span>
-              <div className="absolute inset-0 rounded-full border-4 border-secondary animate-ping opacity-30"></div>
+          <div className="w-full max-w-xs rounded-3xl bg-surface-container-lowest p-6 shadow-2xl flex flex-col items-center text-center border border-surface-container-high">
+            <div className="w-18 h-18 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed mb-4 shadow-sm p-4">
+              <span className="material-symbols-outlined text-[42px]">spa</span>
             </div>
 
-            <h3
-              className="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-3 font-bold"
-              id="modal-title"
-            >
+            <h3 className="text-[22px] font-black text-primary mb-2" id="modal-title">
               {t.pauseModalTitle}
             </h3>
 
-            <p className="font-body-xl text-body-xl text-on-surface-variant mb-6 leading-relaxed">
+            <p className="text-[16px] text-on-surface-variant mb-5 leading-relaxed font-semibold">
               {t.pauseModalDesc}
             </p>
 
             <button
-              className="w-full min-h-[68px] rounded-2xl bg-primary text-on-primary font-headline-md text-headline-md flex items-center justify-center shadow-md active:scale-95 transition-transform"
+              className="w-full min-h-[56px] rounded-xl bg-primary text-on-primary font-bold text-[18px] flex items-center justify-center shadow-md active:scale-95"
               onClick={() => setShowBreathingModal(false)}
               type="button"
             >
