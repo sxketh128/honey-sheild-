@@ -1,11 +1,14 @@
 # 🍯 Honey Shield (हनी शील्ड)
 ### *Senior Citizen Protection Shield Against "Digital Arrest" & Cyber Scams in India*
 
-[![PWA Ready](https://img.shields.io/badge/PWA-100%25_Offline_Ready-success?style=for-the-badge&logo=pwa&color=feb316)](https://github.com/sxketh128/honey-sheild-)
+[![Netlify Status](https://img.shields.io/badge/Netlify-LIVE_DEMO-00AD9F?style=for-the-badge&logo=netlify)](https://honey-shield-demo.netlify.app)
+[![PWA Ready](https://img.shields.io/badge/PWA-100%25_Offline_Ready-success?style=for-the-badge&logo=pwa&color=feb316)](https://honey-shield-demo.netlify.app)
 [![React 19](https://img.shields.io/badge/React-19.2-61DAFB?style=for-the-badge&logo=react)](https://react.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-Stitch_Design_Tokens-38B2AC?style=for-the-badge&logo=tailwind-css)](https://tailwindcss.com/)
 [![Helpline](https://img.shields.io/badge/National_Cyber_Crime_Helpline-1930-red?style=for-the-badge&logo=phone)](tel:1930)
 [![Languages](https://img.shields.io/badge/Languages-Hindi_(Default)_%26_English-orange?style=for-the-badge)](src/i18n.js)
+
+> 🚀 **Live Production Demo Link:** **[https://honey-shield-demo.netlify.app](https://honey-shield-demo.netlify.app)**
 
 ---
 
@@ -175,6 +178,10 @@ npm run build
 ```
 
 The application will be live at `http://localhost:5173/`.
+
+### 🌐 Live Hosted Link
+Access the deployed Progressive Web App on any mobile device or browser:
+👉 **[https://honey-shield-demo.netlify.app](https://honey-shield-demo.netlify.app)**
 
 ---
 
