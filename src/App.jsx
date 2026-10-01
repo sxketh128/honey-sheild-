@@ -10,7 +10,7 @@ import Drill from './pages/Drill';
 export default function App() {
   // Register service worker for offline PWA functionality
   useEffect(() => {
-    if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
+    if ('serviceWorker' in navigator && import.meta.env.PROD) {
       window.addEventListener('load', () => {
         navigator.serviceWorker
           .register('/sw.js')
