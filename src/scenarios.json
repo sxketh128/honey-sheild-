@@ -1,0 +1,245 @@
+[
+  {
+    "id": 1,
+    "scammer": {
+      "hi": "नमस्ते, मैं सीबीआई हेडक्वार्टर से डीसीपी शर्मा बोल रहा हूँ। मुंबई एयरपोर्ट पर आपके आधार कार्ड से जुड़ा एक पार्सल पकड़ा गया है जिसमें अवैध ड्रग्स और 5 फर्जी पासपोर्ट हैं!",
+      "en": "Hello, this is DCP Sharma from CBI Headquarters. A parcel linked to your Aadhaar card was seized at Mumbai Airport containing contraband and 5 fake passports!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "अरे नहीं! सर, मैं निर्दोष हूँ, मैंने कोई पार्सल नहीं भेजा। कृपया मेरी मदद करें!",
+          "en": "Oh no! Sir, I am innocent, I didn't send any parcel. Please help me!"
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: डर और घबराहट ही धोखेबाज का सबसे बड़ा हथियार है। वे आपको डराकर सोचने की शक्ति छीनना चाहते हैं।",
+          "en": "Trap: Panic and fear are the scammer's primary tools. They want you terrified so you don't think rationally."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "मैं किसी पार्सल को नहीं जानता। अगर कोई मामला है तो लिखित कानूनी नोटिस भेजें। मैं कॉल काट रहा हूँ।",
+          "en": "I know nothing about this. If there is a legal issue, send an official postal notice. I am hanging up."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "शाबाश! असली पुलिस कभी फ़ोन पर पार्सल जब्ती की जांच नहीं करती। आधिकारिक नोटिस ही वैध प्रक्रिया है।",
+          "en": "Well done! Real police never call regarding seized courier parcels over phone. Official post is mandatory."
+        }
+      },
+      {
+        "id": "c3",
+        "text": {
+          "hi": "क्या मैं अपने वकील या बेटे से बात करके आपको कॉल बैक करूँ?",
+          "en": "Can I consult my lawyer or son and call you back?"
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "उत्कृष्ट! परिवार या वकील का नाम लेते ही अधिकांश धोखेबाज कॉल काट देते हैं।",
+          "en": "Excellent! Mentioning family or a lawyer causes most scammers to back off immediately."
+        }
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "scammer": {
+      "hi": "फोन मत काटिए! यह अत्यंत गोपनीय जांच है। तुरंत स्काइप या व्हाट्सएप वीडियो कॉल चालू करें, हमारे वरिष्ठ कमिश्नर साहब आपसे बात करेंगे!",
+      "en": "Do not hang up! This is a top-secret investigation. Switch on Skype or WhatsApp video call right now; our Commissioner wants to interrogate you!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "ठीक है सर, मैं अभी वीडियो कॉल ऑन कर रहा हूँ, कृपया मुझे अरेस्ट मत कीजिए।",
+          "en": "Okay sir, I am turning on video call now, please don't arrest me."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: वीडियो कॉल पर धोखेबाज नकली वर्दी और नकली पुलिस स्टेशन बैकग्राउंड दिखाकर आपको और डराएंगे।",
+          "en": "Trap: On video, scammers wear fake uniforms and sit in staged mock police station setups to intimidate you."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "भारतीय कानून में वीडियो कॉल पर जांच या 'डिजिटल अरेस्ट' का कोई नियम नहीं है। मैं तुरंत कॉल काट रहा हूँ।",
+          "en": "Indian law does not permit interrogation or 'digital arrest' over video call. I am hanging up."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "शाबाश! सुप्रीम कोर्ट और गृह मंत्रालय के अनुसार वीडियो कॉल पर कोई पुलिस जांच नहीं होती।",
+          "en": "Well done! Indian Supreme Court & MHA have confirmed no police investigation happens via video call."
+        }
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "scammer": {
+      "hi": "देखिए, मैंने स्क्रीन पर सुप्रीम कोर्ट और सीबीआई का 'डिजिटल अरेस्ट वारंट' भेजा है। आप अब आधिकारिक रूप से अरेस्ट हैं! कमरे का दरवाजा बंद रखें!",
+      "en": "Look, I have sent a Supreme Court & CBI 'Digital Arrest Warrant' to your screen. You are officially under Digital Arrest! Lock your room door!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "सर, कृपया मुझ पर रहम करें, मैं एक रिटायर्ड बुजुर्ग हूँ, मैं कमरे से बाहर नहीं जाऊँगा।",
+          "en": "Sir, have mercy on me, I am an elderly retiree, I will stay inside the room."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: 'डिजिटल अरेस्ट' जैसा कोई वारंट दुनिया में नहीं होता। यह पूरी तरह से फर्जी फोटोशॉप दस्तावेज है।",
+          "en": "Trap: No court in India issues 'Digital Arrest Warrants'. The document is completely fabricated."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "यह फर्जी कागज है। कोई भी अरेस्ट सिर्फ स्थानीय पुलिस द्वारा फिजिकल वारंट के साथ ही हो सकता है।",
+          "en": "This is a fake document. Any valid arrest requires local police with physical jurisdiction and paperwork."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "बिल्कुल सही! किसी भी नागरिक को कमरे में बंद रहने या वीडियो पर बंधक रहने का कोई कानूनी अधिकार नहीं है।",
+          "en": "Spot on! No agency has the power to confine you to a room over a phone screen."
+        }
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "scammer": {
+      "hi": "सावधान! यह राष्ट्रीय सुरक्षा और मनी लॉन्ड्रिंग का मामला है। अगर आपने अपने बेटे, बेटी या किसी रिश्तेदार को बताया, तो उन्हें भी जेल भेज दिया जाएगा!",
+      "en": "Warning! This is a National Security & Money Laundering case. If you tell your children or relatives, they will be jailed as co-conspirators!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "मैं अपने बच्चों को बचाने के लिए किसी को कुछ नहीं बताऊंगा।",
+          "en": "I won't tell anyone, please protect my children."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: यह धोखेबाजों की क्लासिक चाल है - आपको परिवार से अलग-थलग करना ताकि कोई आपको बचा न सके।",
+          "en": "Trap: Classic isolation tactic. Once you are cut off from your family, they have full control over you."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "मैं अभी तुरंत अपने परिवार और स्थानीय पुलिस थाने से संपर्क कर रहा हूँ।",
+          "en": "I am immediately contacting my family and local police station right now."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "अति उत्तम! असली कानून में परिवार और वकील से संपर्क करना आपका संवैधानिक अधिकार है।",
+          "en": "Superb! Contacting family and legal counsel is a protected constitutional right in India."
+        }
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "scammer": {
+      "hi": "जांच पूरी करने के लिए मुझे तुरंत बताएं कि आपके पास कौन-कौन से बैंक खाते, फिक्स्ड डिपॉजिट और पेंशन बचत हैं!",
+      "en": "To complete clearance, disclose all your bank accounts, Fixed Deposits, and pension balances immediately!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "मेरे पास एसबीआई और पीएनबी में 15 लाख की एफडी और बचत खाता है।",
+          "en": "I have ₹15 Lakhs in SBI and PNB fixed deposits and pension account."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: अपनी वित्तीय जानकारी कभी न दें। धोखेबाज यह पता लगा रहे हैं कि वे आपसे कितना पैसा लूट सकते हैं।",
+          "en": "Trap: Never disclose your financial assets. Scammers ask this to calculate how much they can steal."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "मेरी वित्तीय जानकारी पूरी तरह गोपनीय है। मैं किसी अनजान कॉलर को कोई बैंक विवरण नहीं दूंगा।",
+          "en": "My financial details are confidential. I will never disclose bank info to an unknown caller."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "शाबाश! बैंक या पुलिस कभी भी आपके खातों और एफडी का हिसाब फोन पर नहीं मांगते।",
+          "en": "Well done! Neither banks nor police demand financial balances over phone calls."
+        }
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "scammer": {
+      "hi": "आपके सारे पैसे अवैध पाए गए हैं! अपनी बेगुनाही साबित करने के लिए अपने खाते से ₹5,00,000 तुरंत इस 'आरबीआई सुरक्षा एस्क्रो अकाउंट' में ट्रांसफर करें। 30 मिनट में पैसे वापस आ जाएंगे!",
+      "en": "All your funds are flagged as illicit! To prove innocence, transfer ₹5,00,000 immediately to this 'RBI Safe Escrow Account'. Funds will be refunded in 30 minutes!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "अगर 30 मिनट में वापस आ जाएंगे तो मैं अभी नेटबैंकिंग से ट्रांसफर कर देता हूँ।",
+          "en": "If it will be refunded in 30 minutes, I will transfer via netbanking now."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "सबसे बड़ा खतरा: एक बार पैसे ट्रांसफर हो गए तो वे कभी वापस नहीं मिलते! आरबीआई का कोई ऐसा 'सुरक्षा खाता' नहीं होता।",
+          "en": "Critical Danger: Transferred money is instantly laundered via mule accounts. RBI has NO such escrow accounts!"
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "कॉल काटो! कोई भी सरकारी एजेंसी सत्यापन के लिए पैसे ट्रांसफर नहीं कराती। मैं साइबर हेल्पलाइन 1930 पर शिकायत दर्ज कर रहा हूँ।",
+          "en": "Hang up! No government department asks for money transfer to verify innocence. I am reporting to 1930."
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "जीत! आपने सबसे खतरनाक फंदे को पहचान लिया। सत्यापन के नाम पर पैसा मांगना 100% धोखाधड़ी है।",
+          "en": "Victory! You rejected the scam's ultimate trap. Money transfer for verification is 100% fraud."
+        }
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "scammer": {
+      "hi": "अगर आपने अभी ट्रांसफर नहीं किया, तो 10 मिनट में पुलिस जीप आपके घर आएगी और आपको हथकड़ी लगाकर ले जाएगी!",
+      "en": "If you don't transfer now, a police jeep will arrive at your home in 10 minutes and handcuff you in front of neighbors!"
+    },
+    "choices": [
+      {
+        "id": "c1",
+        "text": {
+          "hi": "प्लीज मत आइए, मेरी समाज में इज्जत है, मैं पैसे ट्रांसफर कर रहा हूँ।",
+          "en": "Please don't come, I have a reputation, I will send the money."
+        },
+        "isCorrect": false,
+        "feedback": {
+          "hi": "फंदा: धोखेबाज बुजुर्गों के सामाजिक सम्मान और डर का फायदा उठाते हैं। पुलिस कभी ऐसी धमकियां नहीं देती।",
+          "en": "Trap: Scammers weaponize fear of social stigma. Real law enforcement does not make extortionate threats."
+        }
+      },
+      {
+        "id": "c2",
+        "text": {
+          "hi": "भेजिए पुलिस जीप! मैं अपने स्थानीय थाने में खुद जाकर बात करूँगा। कॉल समाप्त!",
+          "en": "Send the police jeep! I will personally walk to my local police station. Call disconnected!"
+        },
+        "isCorrect": true,
+        "feedback": {
+          "hi": "सर्वश्रेष्ठ प्रतिक्रिया! धोखेबाज कभी पुलिस नहीं भेज सकते क्योंकि वे खुद अपराधी हैं।",
+          "en": "Outstanding! Scammers can never send police because they themselves are hiding criminals."
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,19 @@
+{
+  "short_name": "Honey Shield",
+  "name": "Senior Fraud Shield - Honey Shield",
+  "icons": [
+    {
+      "src": "/shield-icon.svg",
+      "type": "image/svg+xml",
+      "sizes": "192x192 512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#fff9ef",
+  "theme_color": "#09152e",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "lang": "hi"
+}
